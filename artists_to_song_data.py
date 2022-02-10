@@ -4,6 +4,8 @@ import sys
 from spotipy.oauth2 import SpotifyClientCredentials
 import pandas as pd
 import numpy as np
+import warnings
+warnings.filterwarnings("ignore", category=np.VisibleDeprecationWarning) 
 
 parser = ConfigParser()
 parser.read('./spotify_credentials.cfg')
@@ -23,7 +25,7 @@ albums = []
 album_track_ids = []
 
 for artist_id in artist_ids:
-    
+    print('Searching for artist ' + artist_id)
     album_ids = []
     artist_uri = 'spotify:artist:' + artist_id
 
@@ -37,7 +39,7 @@ for artist_id in artist_ids:
         album_ids.append(album['id'])
 
 for id in album_ids:
-
+    print('Searching for album ' + id)
     track_ids = []
 
     results = sp.album_tracks(id)
@@ -84,10 +86,18 @@ data = pd.DataFrame(columns=headings)
 i = 0
 for album in album_track_ids:
 
+    title = albums[i]['name']
+    name = albums[i]['artists'][0]['name']
+
+    print('Looking up track information for ' + name + ' - ' + title)
+
     features = []
     for track in album:
         results = sp.audio_features(track)
-        features.append(results[0])
+        # Empty data fix (Glass Animals)
+        if results[0]: 
+            features.append(results[0])
+
     features_matrix = pd.DataFrame.from_records(features)
 
     # Remove unneeded columns
@@ -98,10 +108,8 @@ for album in album_track_ids:
         feature_lists.append(list(features_matrix[column]))
 
     # Add album title
-    title = albums[i]['name']
     feature_lists.append(title)
     # Add artist name
-    name = albums[i]['artists'][0]['name']
     feature_lists.append(name)
 
     # Add album as a row to data df
@@ -109,7 +117,12 @@ for album in album_track_ids:
     i += 1
 
 # Remove any duplicate albums that Spotify might've released multiple versions of
+print('Removing duplicates...')
 data.drop_duplicates(subset=['album_title', 'album_artist'])
+# data[~data.album_title.str.contains("remixes")]
 
 # Save as csv
-data.to_csv('./data.csv')
+print('Saving as CSV\n')
+data.to_csv('./data/data.csv')
+
+print('Done')
