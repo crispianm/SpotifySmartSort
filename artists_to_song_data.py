@@ -81,7 +81,6 @@ headings = ['danceability',
 data = pd.DataFrame(columns=headings)
 
 
-
 ## Create DataFrames of features from track ids and compress them into lists so each album is one row in the data matrix
 i = 0
 for album in album_track_ids:

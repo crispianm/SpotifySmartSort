@@ -101,7 +101,8 @@ for album in album_track_ids:
     
     for track in album:
         results = sp.audio_features(track)
-        features = results[0]
+        if results[0]: 
+            features = results[0]
         features_matrix = pd.DataFrame.from_records(features, index=[0])
 
         # Remove unneeded columns
