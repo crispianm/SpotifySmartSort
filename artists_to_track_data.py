@@ -25,7 +25,7 @@ albums = []
 album_track_ids = []
 
 for artist_id in artist_ids:
-    
+    print('Searching for artist ' + artist_id)
     album_ids = []
     artist_uri = 'spotify:artist:' + artist_id
 
@@ -40,7 +40,7 @@ for artist_id in artist_ids:
 
 all_tracks = []
 for id in album_ids:
-
+    print('Searching for album ' + id)
     track_ids = []
 
     results = sp.album_tracks(id)
@@ -51,40 +51,36 @@ for id in album_ids:
 
     album_track_ids.append(track_ids)
 
-
+# Make sure the correct number of albums is in album_track_ids
 assert len(album_track_ids) == len(albums)
 
 
-
-# Remove any duplicate albums that Spotify might've released multiple versions of
-print('Removing duplicates...')
-data.drop_duplicates(subset=['album_title', 'album_artist'])
-# data[~data.album_title.str.contains("remixes")]
-
-
 # Remove unnecessary columns
-columns_to_remove = ['analysis_url', 'type', 'uri', 'track_href']
+columns_to_remove = ['analysis_url',
+                    'type',
+                    'uri',
+                    'track_href']
 
 # Add 4 new columns, album_title and artist
 headings = ['danceability',
-'energy',
-'key',
-'loudness',
-'mode',
-'speechiness',
-'acousticness',
-'instrumentalness',
-'liveness',
-'valence',
-'tempo',
-'id',
-'duration_ms',
-'time_signature',
-'track_title',
-'album_title',
-'album_artist',
-'track_number',
-'total_tracks']
+            'energy',
+            'key',
+            'loudness',
+            'mode',
+            'speechiness',
+            'acousticness',
+            'instrumentalness',
+            'liveness',
+            'valence',
+            'tempo',
+            'id',
+            'duration_ms',
+            'time_signature',
+            'track_title',
+            'album_title',
+            'album_artist',
+            'track_number',
+            'total_tracks']
 
 
 # Form empty dataframe with these columns
@@ -96,10 +92,15 @@ i = 0
 j = 0
 for album in album_track_ids:
     
+    album_title = albums[i]['name']
+    artist = albums[i]['artists'][0]['name']
     length = len(album)
-    
-    
+    print('Looking up track information for ' + artist + ' - ' + album_title)
+
     for track in album:
+
+        track_title = all_tracks[j]['name']
+
         results = sp.audio_features(track)
         if results[0]: 
             features = results[0]
@@ -107,36 +108,31 @@ for album in album_track_ids:
 
         # Remove unneeded columns
         features_matrix.drop(columns = columns_to_remove, axis = 1, inplace = True)
-        # print(features_matrix)
 
         # Add track title
-        track_title = all_tracks[j]['name']
         features_matrix['track_title'] = track_title
         # Add album title
-        album_title = albums[i]['name']
         features_matrix['album_title'] = album_title
         # Add artist name
-        name = albums[i]['artists'][0]['name']
-        features_matrix['album_artist'] = name
-
+        features_matrix['album_artist'] = artist
         # Add track number and total tracks
         features_matrix['track_number'] = all_tracks[j]['track_number']
         features_matrix['total_tracks'] = length
 
         # Add album as a row to the data df
-        # print(features_matrix,'\n')
-        # print(data)
         data = data.append(features_matrix)
-
         j += 1
 
     i += 1
 
 # Remove duplicates
+print('Removing duplicates...')
 data.drop_duplicates(subset=['track_number', 'album_title', 'album_artist'])
+# data[~data.album_title.str.contains("remixes")]
 
-
-
+# Add order columns
+data['binary_order'] = data['track_number']%10
+data['order'] = data['track_number']/data['total_tracks']
 
 # Save as csv
 print('Saving as CSV\n')
