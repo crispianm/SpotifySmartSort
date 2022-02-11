@@ -130,10 +130,6 @@ print('Removing duplicates...')
 data.drop_duplicates(subset=['track_number', 'album_title', 'album_artist'])
 # data[~data.album_title.str.contains("remixes")]
 
-# Add order columns
-data['binary_order'] = data['track_number']%10
-data['order'] = data['track_number']/data['total_tracks']
-
 # Save as csv
 print('Saving as CSV\n')
 data.to_csv('./data/data.csv')
