@@ -120,7 +120,7 @@ for album in album_track_ids:
         features_matrix['total_tracks'] = length
 
         # Add album as a row to the data df
-        data = data.append(features_matrix)
+        data = pd.concat([data, features_matrix])
         j += 1
 
     i += 1
@@ -128,6 +128,7 @@ for album in album_track_ids:
 # Remove duplicates
 print('Removing duplicates...')
 data.drop_duplicates(subset=['track_number', 'album_title', 'album_artist'])
+data = data.reset_index(drop=True)
 # data[~data.album_title.str.contains("remixes")]
 
 # Save as csv
