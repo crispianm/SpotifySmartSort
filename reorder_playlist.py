@@ -4,6 +4,7 @@ import sys
 from spotipy.oauth2 import SpotifyClientCredentials
 import pandas as pd
 import numpy as np
+import pickle
 
 parser = ConfigParser()
 parser.read('./spotify_credentials.cfg')
@@ -17,7 +18,15 @@ user_id = 'czdoifmfngjhvoetavlok9dg5'
 playlists = sp.user_playlists(user_id)
 playlists = playlists['items']
 
+
+
+
+
 playlist_id = '3YwPUeHZqBrFzLzP5BF8ND'
+
+
+
+
 
 results = sp.playlist_tracks(playlist_id)
 tracks = results['items']
@@ -76,7 +85,7 @@ for track in track_ids:
     features_matrix['album_artist'] = name
 
     # Add track number and total tracks
-    features_matrix['track_number'] = 0
+    features_matrix['track_number'] = tracks[i]['track']['track_number']
     features_matrix['total_tracks'] = playlist_length
 
     # Add album as a row to the data df
@@ -87,23 +96,40 @@ for track in track_ids:
     i += 1
 
 playlist_data = playlist_data.reset_index(drop=True)
-playlist_data.to_csv('./data/playlist_data.csv')
+# playlist_data.to_csv('./data/playlist_data.csv')
+playlist_data_full = pd.DataFrame(playlist_data)
 
-import random
-random_order = random.sample(range(playlist_length), playlist_length)
 
-# use model here
-playlist_data['track_number'] = random_order
-playlist_data = playlist_data.sort_values(by=['track_number'])
 
-sorted_ids = list(playlist_data['id'])
+# Remove unnecessary testing columns
+columns_to_remove = ['id',
+                    'track_title',
+                    'album_title',
+                    'album_artist',
+                    'track_number',
+                    'total_tracks',
+                    'key',
+                    'mode',
+                    'duration_ms',
+                    'time_signature']
+playlist_data.drop(columns = columns_to_remove, axis = 1, inplace = True)
+
+
+
+# get permissions to rearrange
+from spotipy.oauth2 import SpotifyOAuth
+scope = "playlist-modify-public"
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope,redirect_uri='http://localhost:5678/',client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET))
+
+## Load trained model
+model = pickle.load(open('./regression/bayesian.sav', 'rb')) # change to whichever model we want to use
+playlist_data_full['order'] = model.predict(playlist_data.values)
+playlist_data_full = playlist_data_full.sort_values(by=['order'])
+# playlist_data_full['order'] = np.arange(1, playlist_data_full.shape[0]+1) # convert order to integer playlist track number
+playlist_data_full
 
 # rearrange
-from spotipy.oauth2 import SpotifyOAuth
-
-scope = "playlist-modify-public"
-
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope,redirect_uri='http://localhost:5678/',client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET))
+sorted_ids = list(playlist_data_full['id'])
 
 UPDATED_PLAYLIST = sp.playlist_replace_items(playlist_id,sorted_ids)
 UPDATED_PLAYLIST
