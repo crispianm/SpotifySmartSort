@@ -22,7 +22,7 @@ playlists = playlists['items']
 
 
 
-playlist_id = '3YwPUeHZqBrFzLzP5BF8ND'
+playlist_id = '5odVaQ10ISGhvuakjVGmxp'
 
 
 
@@ -122,7 +122,7 @@ scope = "playlist-modify-public"
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope,redirect_uri='http://localhost:5678/',client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET))
 
 ## Load trained model
-model = pickle.load(open('./regression/bayesian.sav', 'rb')) # change to whichever model we want to use
+model = pickle.load(open('./regression/ols.sav', 'rb')) # change to whichever model we want to use
 playlist_data_full['order'] = model.predict(playlist_data.values)
 playlist_data_full = playlist_data_full.sort_values(by=['order'])
 # playlist_data_full['order'] = np.arange(1, playlist_data_full.shape[0]+1) # convert order to integer playlist track number
