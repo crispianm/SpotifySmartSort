@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+data/Sam/all_segments.csv
+data/Sam/data.csv
+data/Sam/data_timbre.csv
+data/Sam/timbre.csv
