@@ -131,3 +131,8 @@ data/Sam/all_segments.csv
 data/Sam/data.csv
 data/Sam/data_timbre.csv
 data/Sam/timbre.csv
+
+# Data csv files
+data/all_segments.csv
+data/segments.csv
+data/segments/
