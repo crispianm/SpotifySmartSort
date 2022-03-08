@@ -1,10 +1,24 @@
-def get_timbre(song):
+from configparser import ConfigParser
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
 
-    import matplotlib.pyplot as plt
-    import numpy as np
-    import pandas as pd
-    from sklearn.preprocessing import MinMaxScaler
 
+parser = ConfigParser()
+parser.read('./spotify_credentials.cfg')
+
+SPOTIPY_CLIENT_ID = parser.get('spotify', 'SPOTIPY_CLIENT_ID')
+SPOTIPY_CLIENT_SECRET = parser.get('spotify', 'SPOTIPY_CLIENT_SECRET')
+
+sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET))
+
+
+def get_timbre(song, playlist_data_full):
+
+    
     headings = ['start',
     'duration',
     'confidence',
@@ -132,3 +146,4 @@ def get_timbre(song):
     allSongEuclidianTimbre.loc[0] = [euclidianTimbreSong, euclidianTimbreSongStart, euclidianTimbreSongEnd, loudnessSongStart, loudnessSongEnd] # Export values
 
     return allSongEuclidianTimbre
+
