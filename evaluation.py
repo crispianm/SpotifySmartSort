@@ -2,6 +2,8 @@ def evaluate_data(data):
     keyTransition = 0
     tempoTransition = 0
     trackNumTransition = 0
+    loudnessTransition = 0
+    timbreTransition = 0
     danceabilityTransition = 0
     energyTransition = 0
     speechinessTransition = 0
@@ -9,9 +11,9 @@ def evaluate_data(data):
     instrumentalnessTransition = 0
     livenessTransition = 0
     valenceTransition = 0
-    featureTransitionSum = 0
+    # featureTransitionSum = 0
 
-    for x in range(1,len(data)+1):
+    for x in range(1,len(data)):
         # Select two songs for evaluation
         songA = data.iloc[x-1, :]
         songB = data.iloc[x, :]
@@ -38,17 +40,17 @@ def evaluate_data(data):
 
         # # Loudness matching the beginning and end of songs
 
-        # if songA['loudness_end'] * 0.7 <= songB['loudness_start'] <= songA['loudness_end'] * 1.3:
-        #     loudnessTransition += 1
-        # elif songA['loudness'] * 0.7 <= songB['loudness'] <= songA['loudness'] * 1.3:
-        #     loudnessTransition += 1
+        if songA['loudness_end'] * 0.7 <= songB['loudness_start'] <= songA['loudness_end'] * 1.3:
+            loudnessTransition += 1
+        elif songA['loudness'] * 0.7 <= songB['loudness'] <= songA['loudness'] * 1.3:
+            loudnessTransition += 1
 
         # # Timbre matching the beginning and end of songs
 
-        # if songA['timbre_end'] * 0.7 <= songB['timbre_start'] <= songA['timbre_end'] * 1.3:
-        #     timbreTransition += 1
-        # elif songA['timbre'] * 0.7 <= songB['timbre'] <= songA['timbre'] * 1.3:
-        #     timbreTransition += 1
+        if songA['song_timbre_end'] * 0.7 <= songB['song_timbre_start'] <= songA['song_timbre_end'] * 1.3:
+            timbreTransition += 1
+        elif songA['song_timbre'] * 0.7 <= songB['song_timbre'] <= songA['song_timbre'] * 1.3:
+            timbreTransition += 1
 
         # General feature matching to understand if the AI is matching similar features
         lowerLimit = 0.9
@@ -73,6 +75,8 @@ def evaluate_data(data):
     keyTransition = keyTransition / len(data)
     tempoTransition = tempoTransition / len(data)
     trackNumTransition = trackNumTransition / len(data)
+    loudnessTransition = loudnessTransition / len(data)
+    timbreTransition = timbreTransition / len(data)
     danceabilityTransition = danceabilityTransition / len(data)
     energyTransition = energyTransition / len(data)
     speechinessTransition = speechinessTransition / len(data)
@@ -81,6 +85,6 @@ def evaluate_data(data):
     livenessTransition = livenessTransition / len(data)
     valenceTransition = valenceTransition / len(data)
 
-    evaluation_vector = [keyTransition, tempoTransition,trackNumTransition,danceabilityTransition,energyTransition,speechinessTransition,acousticnessTransition,instrumentalnessTransition,livenessTransition,valenceTransition]
+    evaluation_vector = [keyTransition,tempoTransition,trackNumTransition,loudnessTransition,timbreTransition,danceabilityTransition,energyTransition,speechinessTransition,acousticnessTransition,instrumentalnessTransition,livenessTransition,valenceTransition]
 
     return evaluation_vector
