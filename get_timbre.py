@@ -59,7 +59,8 @@ def get_timbre(song, playlist_data_full):
         segment_features_matrix['album_artist'] = playlist_data_full['album_artist']
         # segment_features_matrix['order'] = playlist_data_full.iloc[i,20]
 
-        segment_data = segment_data.append(segment_features_matrix)
+        segment_data = pd.concat([segment_data, segment_features_matrix])
+        # segment_data = segment_data.append(segment_features_matrix)
 
 
     # # Delete empty rows of dataframe

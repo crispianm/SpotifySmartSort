@@ -1,0 +1,11 @@
+danceability,energy,key,loudness,mode,speechiness,acousticness,instrumentalness,liveness,valence,tempo,id,duration_ms,time_signature,track_title,album_title,album_artist,track_number,total_tracks
+0.341,0.293,0,-12.408,1,0.0356,0.756,2.31e-05,0.0833,0.178,93.294,3js9UOPVsguIDI2WyycfRJ,249213,4,Doing Alright - Remastered 2011,Queen,Queen,2,10
+0.62,0.627,3,-5.889,1,0.0259,0.0317,0,0.172,0.164,90.955,26AuyrZGzWWiYZPSd3XBIg,224280,4,Bloodstream,Memories...Do Not Open,The Chainsmokers,3,10
+0.554,0.864,8,-4.403,1,0.0889,0.00166,0,0.119,0.305,126.975,3rnBqIIoxOpQ0p9BeW3NT4,201260,4,Back To Life,Back To Life,DubVision,1,10
+0.671,0.874,6,-4.188,1,0.0448,0.0829,2.72e-05,0.294,0.747,109.96,22jEGuVPtvtMqKPuXdOVCh,152203,4,SAD (Clap Your Hands),SAD / Scatterbrain,Young Rising Sons,1,10
+0.753,0.782,1,-5.826,1,0.118,0.0106,3.58e-06,0.111,0.15,100.006,77Dn6Y5SzjCzfXLjy89dYB,184800,4,Broken Child (feat. JDAM & LissA),Broken Child (feat. JDAM & LissA),Not Your Dope,1,10
+0.859,0.625,7,-5.437,1,0.0914,0.00538,0.000124,0.184,0.636,149.948,5y2K7jr9M8t1HRAu9jzssT,219737,4,No Security,No Security,Skepta,1,10
+0.632,0.805,6,-5.188,1,0.045,0.0646,5.83e-05,0.161,0.429,93.009,6JsfvqClYnc2R5yZ67C2ch,217793,4,"Cross My Mind, Pt. 2 (feat. Kiiara)",Cross My Mind: The Mixtape,A R I Z O N A,1,10
+0.28,0.449,5,-7.736,1,0.0292,0.638,0.701,0.105,0.103,136.4,2DI0fZ4QZmLtapszYaoG6F,236093,4,Atlas - From “The Hunger Games: Catching Fire” Soundtrack,Atlas (From “The Hunger Games: Catching Fire” Soundtrack),Coldplay,1,10
+0.643,0.445,9,-15.23,0,0.043,0.682,0.931,0.087,0.0714,105.0,1LYipMFKz8X6fNU7RJvvVW,165653,4,Last Kiss,Glorious,ARTY,8,10
+0.895,0.453,3,-13.987,1,0.0756,0.00196,0.374,0.0982,0.257,122.151,0KQh7AuuZvpTKWhcJa8Pbr,239227,4,Funkytown,Casablanca Records Greatest Hits,Various Artists,5,10

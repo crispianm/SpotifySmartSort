@@ -136,3 +136,8 @@ data/Sam/timbre.csv
 data/all_segments.csv
 data/segments.csv
 data/segments/
+regression/random_forest.sav
+regression/random_forest.sav
+regression/random_forest.sav
+regression/random_forest.sav
+*.sav

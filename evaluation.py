@@ -11,7 +11,7 @@ def evaluate_data(data):
     valenceTransition = 0
     featureTransitionSum = 0
 
-    for x in range(1,len(data)+1):
+    for x in range(1,len(data)):
         # Select two songs for evaluation
         songA = data.iloc[x-1, :]
         songB = data.iloc[x, :]
@@ -81,6 +81,27 @@ def evaluate_data(data):
     livenessTransition = livenessTransition / len(data)
     valenceTransition = valenceTransition / len(data)
 
-    evaluation_vector = [keyTransition, tempoTransition,trackNumTransition,danceabilityTransition,energyTransition,speechinessTransition,acousticnessTransition,instrumentalnessTransition,livenessTransition,valenceTransition]
+    import pandas as pd
+    evaluation_df = pd.DataFrame(data=[[keyTransition,
+                                tempoTransition,
+                                trackNumTransition,
+                                danceabilityTransition,
+                                energyTransition,
+                                speechinessTransition,
+                                acousticnessTransition,
+                                instrumentalnessTransition,
+                                livenessTransition,
+                                valenceTransition]], 
+                                
+                                columns=['keyTransition',
+                                'tempoTransition',
+                                'trackNumTransition',
+                                'danceabilityTransition',
+                                'energyTransition',
+                                'speechinessTransition',
+                                'acousticnessTransition',
+                                'instrumentalnessTransition',
+                                'livenessTransition',
+                                'valenceTransition'])
 
-    return evaluation_vector
+    return evaluation_df
