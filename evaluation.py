@@ -72,18 +72,18 @@ def evaluate_data(data):
             valenceTransition += 1
 
     # Normalisation
-    keyTransition = keyTransition / len(data)
-    tempoTransition = tempoTransition / len(data)
-    trackNumTransition = trackNumTransition / len(data)
-    loudnessTransition = loudnessTransition / len(data)
-    timbreTransition = timbreTransition / len(data)
-    danceabilityTransition = danceabilityTransition / len(data)
-    energyTransition = energyTransition / len(data)
-    speechinessTransition = speechinessTransition / len(data)
-    acousticnessTransition = acousticnessTransition / len(data)
-    instrumentalnessTransition = instrumentalnessTransition / len(data)
-    livenessTransition = livenessTransition / len(data)
-    valenceTransition = valenceTransition / len(data)
+    keyTransition = keyTransition / (len(data)-1)
+    tempoTransition = tempoTransition / (len(data)-1)
+    trackNumTransition = trackNumTransition / (len(data)-1)
+    loudnessTransition = loudnessTransition / (len(data)-1)
+    timbreTransition = timbreTransition / (len(data)-1)
+    danceabilityTransition = danceabilityTransition / (len(data)-1)
+    energyTransition = energyTransition / (len(data)-1)
+    speechinessTransition = speechinessTransition / (len(data)-1)
+    acousticnessTransition = acousticnessTransition / (len(data)-1)
+    instrumentalnessTransition = instrumentalnessTransition / (len(data)-1)
+    livenessTransition = livenessTransition / (len(data)-1)
+    valenceTransition = valenceTransition / (len(data)-1)
 
 
     evaluation_vector = [keyTransition, tempoTransition, trackNumTransition, loudnessTransition,
