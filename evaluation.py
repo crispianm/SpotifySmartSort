@@ -19,10 +19,10 @@ def evaluate_data(data):
         songB = data.iloc[x, :]
 
         # Relative minor key conversion
-        if songA['mode'] == 1:
-            songA['key'] = (songA['key'] + 3) % 12
-        if songB['mode'] == 1:
-            songB['key'] = (songB['key'] + 3) % 12
+        if songA.at['mode'] == 1:
+            songA.at['key'] = (songA.at['key'] + 3) % 12
+        if songB.at['mode'] == 1:
+            songB.at['key'] = (songB.at['key'] + 3) % 12
 
         # Key Evaluation
         if songA['key'] == songB['key']:
