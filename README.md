@@ -1,41 +1,46 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-f059dc9a6f8d3a56e377f745f24479a46679e63a5d9fe6f495e02850cd0d8118.svg)](https://classroom.github.com/online_ide?assignment_repo_id=6799724&assignment_repo_type=AssignmentRepo)
-# Spotify SmartSort
-## Setup
-### Training Data
-Fetch spotify API song analysis for songs in training albums:
+# Spotify Song Transition Optomisation using Regression Modelling and Search Algorithms
+## API Setup
+api_test.ipynb,
+reorder_playlist.py,
+spotify_credentials.cfg,
+## Data
+artists_to_track_data.ipynb, 
+playlist_import.ipynb, sections.ipynb, 
+segmentDataExtraction.ipynb, 
+get_timbre.py
 
-    Normalise features
-        Danceability, Energy, Normalised Loudness, Speechiness, Acousticness, 
-        Instrumentalness, Liveness, Valence, Normalised Tempo, Track Number/Total Albums
-    Analysis 
-        Timbre - first & last 10 secs of song, and song average
-        Loudness - first & last 10 secs of song
-For each training data point, save the above data for the song and the previous & next songs in the album.
-### Clustering
-Group data into bins
-### Tune test data
-Fall out tree - to weight the most important variables.
-### Auto Encoder
-Dimensionality reduction
-### AI Training
-Given song data, predict song data for next & previous song.
+Training Data: 
+playlist_data.csv, 
+sections.csv, 
+segments.csv, 
+data.csv, 
+data_timbre.csv, 
+data_timbre1.csv,
+all_segments.csv, 
+timbre.csv
 
-    NN    or    Regression
-### Auto Decoder
-To out
-
-## Usage
-Get playlist to sort.
-
-Choose random first song.
-### Simple Algorithm
-Find most likely next song for best transistion.
-(K-nearest neighbours)
-
-Repeat for all songs in the playlist, and save to spotify.
-
-Visualisation - Graph the probabilities of most likely next songs 
-### Optimised Algorithm
-Maximise the summation of probabilities for all transistions in the playlist (so the end of the playlist dosen't have a few songs with horrible transistions).
-
-Visualisation - Graph the strength of transitions of the playlist
+Test Data: 
+playlist_data_XX.csv (Albums dataset), 
+playlist_data_random_XX.csv (Playlist dataset), 
+playlist_data_ucs_XX.csv (Album dataset, but only albums with 11 songs or less)
+## Clustering & Dimensionality reduction
+crispians_tests.ipynb,
+nn_test.ipynb
+## Auto Encoder
+autoencoder.ipynb, 
+autoencoder_random_forest.sav, 
+autoencoder.h5, 
+encoder.h5, 
+decoder.h5
+## AI Training
+ExtraTrees: 
+regression.ipynb, 
+random_forest.sav
+Predict-next: 
+order_optimiser.ipynb, 
+rf_predict_next.sav
+## Evaluation
+evaluation.py
+## Usage & Optimisers
+playlist_testing.ipynb
